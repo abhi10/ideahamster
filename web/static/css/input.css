@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom 90's retro styles */
+@layer components {
+  .retro-button {
+    @apply px-6 py-3 font-pixel text-sm border-4 border-neon-pink bg-purple-900 text-neon-cyan;
+    @apply hover:bg-neon-pink hover:text-gray-900 transition-all duration-200;
+    @apply shadow-lg hover:shadow-neon-pink/50;
+    image-rendering: pixelated;
+  }
+
+  .retro-card {
+    @apply border-4 border-neon-cyan bg-gray-900 bg-opacity-90 p-6;
+    @apply shadow-lg hover:shadow-neon-cyan/50 transition-all duration-200;
+  }
+
+  .retro-input {
+    @apply px-4 py-2 border-2 border-neon-purple bg-gray-800 text-white;
+    @apply focus:border-neon-pink focus:outline-none;
+  }
+
+  .neon-glow-pink {
+    text-shadow: 0 0 10px #FF10F0, 0 0 20px #FF10F0, 0 0 30px #FF10F0;
+  }
+
+  .neon-glow-cyan {
+    text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+  }
+
+  .neon-glow-purple {
+    text-shadow: 0 0 10px #9D00FF, 0 0 20px #9D00FF, 0 0 30px #9D00FF;
+  }
+}
+
+/* Pixel perfect rendering */
+* {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Smooth text rendering for fonts */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

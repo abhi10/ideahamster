@@ -1,0 +1,65 @@
+package templates
+
+templ Layout(title string) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ title } - Idea Hamster 🐹</title>
+
+			<!-- Tailwind CSS -->
+			<link href="/static/css/output.css" rel="stylesheet"/>
+
+			<!-- Retro Fonts -->
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet"/>
+
+			<!-- HTMX -->
+			<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+			<!-- Custom CSS for CRT effects -->
+			<style>
+				@keyframes scanline {
+					0% { transform: translateY(-100%); }
+					100% { transform: translateY(100%); }
+				}
+
+				.crt-effect::before {
+					content: "";
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background: linear-gradient(
+						rgba(18, 16, 16, 0) 50%,
+						rgba(0, 0, 0, 0.25) 50%
+					);
+					background-size: 100% 4px;
+					pointer-events: none;
+					z-index: 9999;
+				}
+
+				.crt-effect::after {
+					content: "";
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 2px;
+					background: rgba(255, 255, 255, 0.1);
+					animation: scanline 8s linear infinite;
+					pointer-events: none;
+					z-index: 9999;
+				}
+			</style>
+		</head>
+		<body class="bg-gray-900 text-white font-mono crt-effect">
+			<div class="min-h-screen">
+				{ children... }
+			</div>
+		</body>
+	</html>
+}

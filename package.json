@@ -1,0 +1,21 @@
+{
+  "name": "idea-hamster",
+  "version": "0.1.0",
+  "description": "Community-driven platform for voting on app ideas with 90's retro aesthetic",
+  "scripts": {
+    "dev:css": "tailwindcss -i ./web/static/css/input.css -o ./web/static/css/output.css --watch",
+    "build:css": "tailwindcss -i ./web/static/css/input.css -o ./web/static/css/output.css --minify"
+  },
+  "keywords": [
+    "go",
+    "templ",
+    "htmx",
+    "tailwind",
+    "retro"
+  ],
+  "author": "Abhishek Raju Chamarthi",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
