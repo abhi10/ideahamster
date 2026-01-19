@@ -27,7 +27,12 @@ install:
 # Generate Templ templates
 templ:
 	@echo "🔨 Generating Templ templates..."
-	templ generate
+	@if command -v templ > /dev/null; then \
+		templ generate; \
+	else \
+		echo "Using ~/go/bin/templ..."; \
+		~/go/bin/templ generate; \
+	fi
 
 # Build Tailwind CSS (production)
 css:
