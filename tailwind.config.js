@@ -7,14 +7,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 90's Tron Grid - Blue + Purple + Cyan + Green
+        // Arctic Vapor - Cyan + Purple + Ice Blue + White
         neon: {
-          blue: '#00D4FF',      // Electric blue - borders, grid lines
-          purple: '#B026FF',    // Bright purple - headers, titles
-          cyan: '#00FFFF',      // Cyan - highlights, accents
-          green: '#39FF14',     // Lime green - vote scores (glowing!)
-          darkPurple: '#6A0DAD', // Deep purple - secondary
-          teal: '#00CED1',      // Teal - alternative
+          cyan: '#00FFFF',       // Bright cyan - primary, headers
+          purple: '#9D00FF',     // Deep purple - accents, titles
+          ice: '#E0F7FF',        // Ice blue - highlights, soft glow
+          white: '#FFFFFF',      // Pure white - text highlights
+          lavender: '#E6E6FA',   // Lavender - subtle accents
+          violet: '#8A2BE2',     // Blue violet - secondary purple
+          aqua: '#00CED1',       // Aqua - alternative cyan
+          mint: '#98FF98',       // Mint green - success states
         },
       },
       fontFamily: {

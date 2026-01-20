@@ -2,19 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Tron Grid - Electric Blue + Purple + Cyan + Green */
+/* Arctic Vapor - Cyan + Purple + Ice Blue */
 @layer components {
   .retro-button {
-    @apply px-6 py-3 font-pixel text-sm border-4 border-neon-purple bg-gray-900 text-neon-cyan;
-    @apply hover:bg-neon-purple hover:text-black transition-all duration-200;
-    @apply shadow-lg hover:shadow-neon-purple/50;
+    @apply px-6 py-3 font-pixel text-sm border-4 border-neon-cyan bg-gray-900 text-neon-ice;
+    @apply hover:bg-neon-cyan hover:text-black transition-all duration-200;
+    @apply shadow-lg hover:shadow-neon-cyan/50;
     image-rendering: pixelated;
   }
 
   .retro-card {
-    @apply border-4 border-neon-blue bg-gray-900 bg-opacity-90 p-6;
-    @apply shadow-lg hover:shadow-neon-blue/50 transition-all duration-200;
+    @apply border-4 border-neon-cyan bg-gray-900 bg-opacity-90 p-6;
+    @apply shadow-lg hover:shadow-neon-cyan/50 transition-all duration-200;
     position: relative;
+    backdrop-filter: blur(2px);
   }
 
   .retro-card::before {
@@ -24,10 +25,10 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(0, 212, 255, 0.1) 50%,
-      transparent 100%
+    background: linear-gradient(135deg,
+      rgba(0, 255, 255, 0.05) 0%,
+      rgba(157, 0, 255, 0.05) 50%,
+      rgba(224, 247, 255, 0.05) 100%
     );
     pointer-events: none;
     opacity: 0;
@@ -39,36 +40,67 @@
   }
 
   .retro-input {
-    @apply px-4 py-2 border-2 border-neon-cyan bg-gray-800 text-white;
-    @apply focus:border-neon-purple focus:outline-none;
-  }
-
-  .neon-glow-blue {
-    text-shadow: 0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 30px #00D4FF;
-  }
-
-  .neon-glow-purple {
-    text-shadow: 0 0 10px #B026FF, 0 0 20px #B026FF, 0 0 30px #B026FF;
+    @apply px-4 py-2 border-2 border-neon-ice bg-gray-800 text-white;
+    @apply focus:border-neon-cyan focus:outline-none;
   }
 
   .neon-glow-cyan {
-    text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+    text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF, 0 0 40px #00FFFF;
   }
 
-  .neon-glow-green {
-    text-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14, 0 0 30px #39FF14, 0 0 40px #39FF14;
+  .neon-glow-purple {
+    text-shadow: 0 0 10px #9D00FF, 0 0 20px #9D00FF, 0 0 30px #9D00FF;
   }
 
-  .neon-glow-teal {
-    text-shadow: 0 0 10px #00CED1, 0 0 20px #00CED1, 0 0 30px #00CED1;
+  .neon-glow-ice {
+    text-shadow: 0 0 10px #E0F7FF, 0 0 20px #E0F7FF, 0 0 30px #00FFFF;
   }
 
-  /* Tron grid background effect */
+  .neon-glow-white {
+    text-shadow: 0 0 5px #FFFFFF, 0 0 10px #FFFFFF, 0 0 15px #00FFFF;
+  }
+
+  .neon-glow-mint {
+    text-shadow: 0 0 10px #98FF98, 0 0 20px #98FF98, 0 0 30px #98FF98;
+  }
+
+  /* Frost grid background effect */
   .tron-grid {
     background-image:
-      linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+      linear-gradient(rgba(0, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.08) 1px, transparent 1px);
     background-size: 50px 50px;
+  }
+
+  /* Arctic shimmer effect */
+  .arctic-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .arctic-shimmer::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(224, 247, 255, 0.1) 50%,
+      transparent 70%
+    );
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) translateY(-100%);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%);
+    }
   }
 }
 
