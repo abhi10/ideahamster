@@ -13,7 +13,7 @@ templ IdeaCard(idea models.Idea, expanded bool) {
 		<div class="flex justify-between items-start mb-4">
 			<div class="flex-1">
 				<h2
-					class="text-xl font-pixel mb-2 neon-glow-pink"
+					class="text-xl font-pixel mb-2 neon-glow-coral text-neon-coral cursor-pointer"
 					hx-get={ fmt.Sprintf("/idea/%s/expand", idea.ID) }
 					hx-target={ fmt.Sprintf("#idea-%s", idea.ID) }
 					hx-swap="outerHTML"
@@ -21,7 +21,7 @@ templ IdeaCard(idea models.Idea, expanded bool) {
 					{ idea.Title }
 				</h2>
 				<div class="flex gap-2 text-xs mb-2">
-					<span class="px-2 py-1 border border-neon-cyan text-neon-cyan">
+					<span class="px-2 py-1 border border-neon-blue text-neon-blue">
 						{ idea.Category }
 					</span>
 					for _, tag := range idea.Tags {
@@ -34,12 +34,12 @@ templ IdeaCard(idea models.Idea, expanded bool) {
 
 			<!-- Vote Count Badge -->
 			<div class="flex flex-col items-center ml-4">
-				<div class="text-3xl font-pixel neon-glow-cyan">
+				<div class="text-3xl font-pixel neon-glow-blue text-neon-blue">
 					{ fmt.Sprintf("%d", idea.VoteCount) }
 				</div>
 				<div class="text-xs text-gray-400">votes</div>
 				if idea.Status == models.StatusEligible {
-					<div class="mt-2 px-2 py-1 border-2 border-neon-green text-neon-green text-xs animate-pulse">
+					<div class="mt-2 px-2 py-1 border-2 border-neon-green text-neon-green text-xs animate-pulse neon-glow-green">
 						ELIGIBLE!
 					</div>
 				}
@@ -53,7 +53,7 @@ templ IdeaCard(idea models.Idea, expanded bool) {
 			} else {
 				if len(idea.Description) > 120 {
 					{ idea.Description[:120] }...
-					<span class="text-neon-cyan ml-2">Click to expand</span>
+					<span class="text-neon-teal ml-2">Click to expand</span>
 				} else {
 					{ idea.Description }
 				}
@@ -121,7 +121,7 @@ templ EmailVerificationModal() {
 		style="display: none;"
 	>
 		<div class="retro-card max-w-md w-full mx-4">
-			<h2 class="text-2xl font-pixel neon-glow-pink mb-4">
+			<h2 class="text-2xl font-pixel neon-glow-blue text-neon-blue mb-4">
 				VERIFY EMAIL
 			</h2>
 			<p class="mb-4 text-gray-300">

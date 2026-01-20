@@ -2,35 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom 90's retro styles */
+/* Custom 90's retro styles - Electric Blue + Coral + Purple */
 @layer components {
   .retro-button {
-    @apply px-6 py-3 font-pixel text-sm border-4 border-neon-pink bg-purple-900 text-neon-cyan;
-    @apply hover:bg-neon-pink hover:text-gray-900 transition-all duration-200;
-    @apply shadow-lg hover:shadow-neon-pink/50;
+    @apply px-6 py-3 font-pixel text-sm border-4 border-neon-coral bg-purple-900 text-neon-blue;
+    @apply hover:bg-neon-coral hover:text-gray-900 transition-all duration-200;
+    @apply shadow-lg hover:shadow-neon-coral/50;
     image-rendering: pixelated;
   }
 
   .retro-card {
-    @apply border-4 border-neon-cyan bg-gray-900 bg-opacity-90 p-6;
-    @apply shadow-lg hover:shadow-neon-cyan/50 transition-all duration-200;
+    @apply border-4 border-neon-blue bg-gray-900 bg-opacity-90 p-6;
+    @apply shadow-lg hover:shadow-neon-blue/50 transition-all duration-200;
   }
 
   .retro-input {
     @apply px-4 py-2 border-2 border-neon-purple bg-gray-800 text-white;
-    @apply focus:border-neon-pink focus:outline-none;
+    @apply focus:border-neon-blue focus:outline-none;
   }
 
-  .neon-glow-pink {
-    text-shadow: 0 0 10px #FF10F0, 0 0 20px #FF10F0, 0 0 30px #FF10F0;
+  .neon-glow-blue {
+    text-shadow: 0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 30px #00D4FF;
   }
 
-  .neon-glow-cyan {
-    text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+  .neon-glow-coral {
+    text-shadow: 0 0 10px #FF6B6B, 0 0 20px #FF6B6B, 0 0 30px #FF6B6B;
   }
 
   .neon-glow-purple {
     text-shadow: 0 0 10px #9D00FF, 0 0 20px #9D00FF, 0 0 30px #9D00FF;
+  }
+
+  .neon-glow-teal {
+    text-shadow: 0 0 10px #00CED1, 0 0 20px #00CED1, 0 0 30px #00CED1;
+  }
+
+  .neon-glow-green {
+    text-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14, 0 0 30px #39FF14;
   }
 }
 

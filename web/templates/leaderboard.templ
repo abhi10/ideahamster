@@ -8,10 +8,10 @@ templ Leaderboard(ideas []models.Idea) {
 		<div class="container mx-auto px-4 py-8">
 			<!-- Header -->
 			<header class="text-center mb-12">
-				<h1 class="text-5xl font-pixel mb-4 neon-glow-pink">
+				<h1 class="text-5xl font-pixel mb-4 neon-glow-blue text-neon-blue">
 					🐹 IDEA LEADERBOARD
 				</h1>
-				<p class="text-xl font-retro text-neon-cyan mb-6">
+				<p class="text-xl font-retro text-neon-coral mb-6">
 					Vote for your favorite ideas. 50 votes = Build eligibility!
 				</p>
 
@@ -23,7 +23,7 @@ templ Leaderboard(ideas []models.Idea) {
 				<!-- Filter Tabs -->
 				<div class="flex gap-4 justify-center text-sm">
 					<button
-						class="px-4 py-2 border-2 border-neon-pink bg-neon-pink text-gray-900 font-pixel"
+						class="px-4 py-2 border-2 border-neon-coral bg-neon-coral text-gray-900 font-pixel transition-all"
 						hx-get="/leaderboard?sort=votes"
 						hx-target="#ideas-list"
 						hx-swap="innerHTML"
@@ -31,7 +31,7 @@ templ Leaderboard(ideas []models.Idea) {
 						TOP VOTED
 					</button>
 					<button
-						class="px-4 py-2 border-2 border-neon-cyan text-neon-cyan font-pixel hover:bg-neon-cyan hover:text-gray-900"
+						class="px-4 py-2 border-2 border-neon-blue text-neon-blue font-pixel hover:bg-neon-blue hover:text-gray-900 transition-all"
 						hx-get="/leaderboard?sort=recent"
 						hx-target="#ideas-list"
 						hx-swap="innerHTML"
@@ -39,7 +39,7 @@ templ Leaderboard(ideas []models.Idea) {
 						RECENT
 					</button>
 					<button
-						class="px-4 py-2 border-2 border-neon-purple text-neon-purple font-pixel hover:bg-neon-purple hover:text-gray-900"
+						class="px-4 py-2 border-2 border-neon-purple text-neon-purple font-pixel hover:bg-neon-purple hover:text-gray-900 transition-all"
 						hx-get="/leaderboard?sort=eligible"
 						hx-target="#ideas-list"
 						hx-swap="innerHTML"
@@ -71,19 +71,19 @@ templ Leaderboard(ideas []models.Idea) {
 			<!-- Stats Footer -->
 			<div class="mt-16 max-w-4xl mx-auto grid grid-cols-3 gap-4 text-center">
 				<div class="retro-card">
-					<div class="text-3xl font-pixel neon-glow-cyan mb-2">
+					<div class="text-3xl font-pixel neon-glow-blue text-neon-blue mb-2">
 						{ fmt.Sprintf("%d", len(ideas)) }
 					</div>
 					<div class="text-sm text-gray-400">Total Ideas</div>
 				</div>
 				<div class="retro-card">
-					<div class="text-3xl font-pixel neon-glow-pink mb-2">
+					<div class="text-3xl font-pixel neon-glow-coral text-neon-coral mb-2">
 						{ fmt.Sprintf("%d", countEligible(ideas)) }
 					</div>
 					<div class="text-sm text-gray-400">Eligible to Build</div>
 				</div>
 				<div class="retro-card">
-					<div class="text-3xl font-pixel neon-glow-purple mb-2">
+					<div class="text-3xl font-pixel neon-glow-purple text-neon-purple mb-2">
 						{ fmt.Sprintf("%d", totalVotes(ideas)) }
 					</div>
 					<div class="text-sm text-gray-400">Total Votes</div>

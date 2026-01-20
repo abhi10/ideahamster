@@ -7,13 +7,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 90's retro color palette
+        // 90's retro color palette - Electric Blue + Coral + Purple
         neon: {
-          pink: '#FF10F0',
-          cyan: '#00FFFF',
-          purple: '#9D00FF',
-          green: '#39FF14',
-          yellow: '#FFFF00',
+          blue: '#00D4FF',      // Electric blue - primary
+          coral: '#FF6B6B',     // Coral - accent
+          purple: '#9D00FF',    // Purple - secondary
+          teal: '#00CED1',      // Teal - alternative
+          gold: '#FFD700',      // Gold - success states
+          green: '#39FF14',     // Lime green - kept for eligible badges
         },
       },
       fontFamily: {
