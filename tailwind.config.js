@@ -7,14 +7,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 90's retro color palette - Electric Blue + Coral + Purple
+        // 90's Tron Grid - Blue + Purple + Cyan + Green
         neon: {
-          blue: '#00D4FF',      // Electric blue - primary
-          coral: '#FF6B6B',     // Coral - accent
-          purple: '#9D00FF',    // Purple - secondary
+          blue: '#00D4FF',      // Electric blue - borders, grid lines
+          purple: '#B026FF',    // Bright purple - headers, titles
+          cyan: '#00FFFF',      // Cyan - highlights, accents
+          green: '#39FF14',     // Lime green - vote scores (glowing!)
+          darkPurple: '#6A0DAD', // Deep purple - secondary
           teal: '#00CED1',      // Teal - alternative
-          gold: '#FFD700',      // Gold - success states
-          green: '#39FF14',     // Lime green - kept for eligible badges
         },
       },
       fontFamily: {

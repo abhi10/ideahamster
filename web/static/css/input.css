@@ -2,43 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom 90's retro styles - Electric Blue + Coral + Purple */
+/* Tron Grid - Electric Blue + Purple + Cyan + Green */
 @layer components {
   .retro-button {
-    @apply px-6 py-3 font-pixel text-sm border-4 border-neon-coral bg-purple-900 text-neon-blue;
-    @apply hover:bg-neon-coral hover:text-gray-900 transition-all duration-200;
-    @apply shadow-lg hover:shadow-neon-coral/50;
+    @apply px-6 py-3 font-pixel text-sm border-4 border-neon-purple bg-gray-900 text-neon-cyan;
+    @apply hover:bg-neon-purple hover:text-black transition-all duration-200;
+    @apply shadow-lg hover:shadow-neon-purple/50;
     image-rendering: pixelated;
   }
 
   .retro-card {
     @apply border-4 border-neon-blue bg-gray-900 bg-opacity-90 p-6;
     @apply shadow-lg hover:shadow-neon-blue/50 transition-all duration-200;
+    position: relative;
+  }
+
+  .retro-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(0, 212, 255, 0.1) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .retro-card:hover::before {
+    opacity: 1;
   }
 
   .retro-input {
-    @apply px-4 py-2 border-2 border-neon-purple bg-gray-800 text-white;
-    @apply focus:border-neon-blue focus:outline-none;
+    @apply px-4 py-2 border-2 border-neon-cyan bg-gray-800 text-white;
+    @apply focus:border-neon-purple focus:outline-none;
   }
 
   .neon-glow-blue {
     text-shadow: 0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 30px #00D4FF;
   }
 
-  .neon-glow-coral {
-    text-shadow: 0 0 10px #FF6B6B, 0 0 20px #FF6B6B, 0 0 30px #FF6B6B;
+  .neon-glow-purple {
+    text-shadow: 0 0 10px #B026FF, 0 0 20px #B026FF, 0 0 30px #B026FF;
   }
 
-  .neon-glow-purple {
-    text-shadow: 0 0 10px #9D00FF, 0 0 20px #9D00FF, 0 0 30px #9D00FF;
+  .neon-glow-cyan {
+    text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+  }
+
+  .neon-glow-green {
+    text-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14, 0 0 30px #39FF14, 0 0 40px #39FF14;
   }
 
   .neon-glow-teal {
     text-shadow: 0 0 10px #00CED1, 0 0 20px #00CED1, 0 0 30px #00CED1;
   }
 
-  .neon-glow-green {
-    text-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14, 0 0 30px #39FF14;
+  /* Tron grid background effect */
+  .tron-grid {
+    background-image:
+      linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
   }
 }
 
