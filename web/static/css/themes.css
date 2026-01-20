@@ -1,0 +1,107 @@
+/* Theme CSS Variables - 4 Themes Available */
+
+/* Default: Arctic Vapor */
+:root {
+  --color-primary: #00FFFF;       /* Cyan */
+  --color-secondary: #9D00FF;     /* Purple */
+  --color-accent: #E0F7FF;        /* Ice blue */
+  --color-success: #98FF98;       /* Mint green */
+  --color-highlight: #FFFFFF;     /* White */
+
+  --glow-primary: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary), 0 0 30px var(--color-primary), 0 0 40px var(--color-primary);
+  --glow-secondary: 0 0 10px var(--color-secondary), 0 0 20px var(--color-secondary), 0 0 30px var(--color-secondary);
+  --glow-success: 0 0 10px var(--color-success), 0 0 20px var(--color-success), 0 0 30px var(--color-success);
+}
+
+/* Theme 1: Original Pink */
+[data-theme="original"] {
+  --color-primary: #FF10F0;       /* Hot pink */
+  --color-secondary: #00FFFF;     /* Cyan */
+  --color-accent: #9D00FF;        /* Purple */
+  --color-success: #39FF14;       /* Lime green */
+  --color-highlight: #FF10F0;     /* Hot pink */
+
+  --glow-primary: 0 0 10px #FF10F0, 0 0 20px #FF10F0, 0 0 30px #FF10F0, 0 0 40px #FF10F0;
+  --glow-secondary: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+  --glow-success: 0 0 10px #39FF14, 0 0 20px #39FF14, 0 0 30px #39FF14, 0 0 40px #39FF14;
+}
+
+/* Theme 2: Arctic Vapor (default) */
+[data-theme="arctic"] {
+  --color-primary: #00FFFF;       /* Cyan */
+  --color-secondary: #9D00FF;     /* Purple */
+  --color-accent: #E0F7FF;        /* Ice blue */
+  --color-success: #98FF98;       /* Mint green */
+  --color-highlight: #FFFFFF;     /* White */
+
+  --glow-primary: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF, 0 0 40px #00FFFF;
+  --glow-secondary: 0 0 10px #9D00FF, 0 0 20px #9D00FF, 0 0 30px #9D00FF;
+  --glow-success: 0 0 10px #98FF98, 0 0 20px #98FF98, 0 0 30px #98FF98;
+}
+
+/* Theme 3: Rivian Earth */
+[data-theme="rivian-earth"] {
+  --color-primary: #00A878;       /* Forest green (Launch green) */
+  --color-secondary: #D4D4CE;     /* Limestone gray */
+  --color-accent: #FFD700;        /* Gold */
+  --color-success: #39FF14;       /* Lime green */
+  --color-highlight: #F5F5DC;     /* Beige */
+
+  --glow-primary: 0 0 10px #00A878, 0 0 20px #00A878, 0 0 30px #00A878, 0 0 40px #00A878;
+  --glow-secondary: 0 0 10px #D4D4CE, 0 0 20px #D4D4CE, 0 0 30px #D4D4CE;
+  --glow-success: 0 0 10px #39FF14, 0 0 20px #39FF14, 0 0 30px #39FF14;
+}
+
+/* Theme 4: Rivian Cyber */
+[data-theme="rivian-cyber"] {
+  --color-primary: #008B8B;       /* Teal */
+  --color-secondary: #C0C0C0;     /* Silver */
+  --color-accent: #FFFFFF;        /* Pure white */
+  --color-success: #00CED1;       /* Dark turquoise */
+  --color-highlight: #E8E8E8;     /* Light gray */
+
+  --glow-primary: 0 0 10px #008B8B, 0 0 20px #008B8B, 0 0 30px #008B8B, 0 0 40px #008B8B;
+  --glow-secondary: 0 0 10px #C0C0C0, 0 0 20px #C0C0C0, 0 0 30px #C0C0C0;
+  --glow-success: 0 0 10px #00CED1, 0 0 20px #00CED1, 0 0 30px #00CED1;
+}
+
+/* Apply theme colors to dynamic elements */
+.theme-primary {
+  color: var(--color-primary) !important;
+  text-shadow: var(--glow-primary);
+}
+
+.theme-secondary {
+  color: var(--color-secondary) !important;
+  text-shadow: var(--glow-secondary);
+}
+
+.theme-accent {
+  color: var(--color-accent) !important;
+}
+
+.theme-success {
+  color: var(--color-success) !important;
+  text-shadow: var(--glow-success);
+}
+
+.theme-border-primary {
+  border-color: var(--color-primary) !important;
+}
+
+.theme-border-secondary {
+  border-color: var(--color-secondary) !important;
+}
+
+.theme-bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.theme-bg-secondary {
+  background-color: var(--color-secondary) !important;
+}
+
+/* Smooth theme transitions */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, text-shadow 0.3s ease;
+}

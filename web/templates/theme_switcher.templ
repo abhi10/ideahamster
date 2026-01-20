@@ -1,0 +1,17 @@
+package templates
+
+// ThemeSwitcher renders a dropdown for switching themes
+templ ThemeSwitcher() {
+	<div class="theme-switcher relative inline-block">
+		<select
+			id="theme-selector"
+			onchange="ThemeSwitcher.switch(this.value)"
+			class="px-4 py-2 bg-gray-800 border-2 theme-border-primary theme-primary font-pixel text-xs cursor-pointer hover:theme-bg-primary hover:text-black transition-all"
+		>
+			<option value="original">🌸 Original Pink</option>
+			<option value="arctic" selected>❄️ Arctic Vapor</option>
+			<option value="rivian-earth">🌲 Rivian Earth</option>
+			<option value="rivian-cyber">🤖 Rivian Cyber</option>
+		</select>
+	</div>
+}

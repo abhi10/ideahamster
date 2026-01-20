@@ -8,10 +8,15 @@ templ Leaderboard(ideas []models.Idea) {
 		<div class="container mx-auto px-4 py-8 tron-grid arctic-shimmer">
 			<!-- Header -->
 			<header class="text-center mb-12">
-				<h1 class="text-5xl font-pixel mb-4 neon-glow-cyan text-neon-cyan">
+				<!-- Theme Switcher -->
+				<div class="flex justify-end mb-4">
+					@ThemeSwitcher()
+				</div>
+
+				<h1 class="text-5xl font-pixel mb-4 theme-primary">
 					🐹 IDEA LEADERBOARD
 				</h1>
-				<p class="text-xl font-retro text-neon-ice mb-6">
+				<p class="text-xl font-retro theme-accent mb-6">
 					Vote for your favorite ideas. 50 votes = Build eligibility!
 				</p>
 
