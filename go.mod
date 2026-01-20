@@ -1,4 +1,4 @@
-module github.com/abhishekrajuchamarthi/idea-hamster
+module github.com/abhi10/idea-hamster
 
 go 1.25.4
 

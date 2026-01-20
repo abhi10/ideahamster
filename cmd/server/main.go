@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/abhishekrajuchamarthi/idea-hamster/internal/handlers"
+	"github.com/abhi10/idea-hamster/internal/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/joho/godotenv"
@@ -38,6 +38,12 @@ func main() {
 
 	// Routes
 	r.Get("/", handlers.HandleHome)
+	r.Get("/leaderboard", handlers.HandleLeaderboard)
+
+	// API Routes
+	r.Post("/api/vote/{ideaID}", handlers.HandleVote)
+	r.Post("/api/verify-email", handlers.HandleVerifyEmail)
+	r.Get("/idea/{ideaID}/expand", handlers.HandleExpandIdea)
 
 	// Start server
 	log.Printf("🐹 Idea Hamster starting on http://localhost:%s", port)

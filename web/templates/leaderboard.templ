@@ -1,0 +1,125 @@
+package templates
+
+import "github.com/abhi10/idea-hamster/internal/models"
+import "fmt"
+
+templ Leaderboard(ideas []models.Idea) {
+	@Layout("Leaderboard") {
+		<div class="container mx-auto px-4 py-8">
+			<!-- Header -->
+			<header class="text-center mb-12">
+				<h1 class="text-5xl font-pixel mb-4 neon-glow-pink">
+					🐹 IDEA LEADERBOARD
+				</h1>
+				<p class="text-xl font-retro text-neon-cyan mb-6">
+					Vote for your favorite ideas. 50 votes = Build eligibility!
+				</p>
+
+				<!-- Submit Idea Button -->
+				<div class="mb-8">
+					@SubmitIdeaButton()
+				</div>
+
+				<!-- Filter Tabs -->
+				<div class="flex gap-4 justify-center text-sm">
+					<button
+						class="px-4 py-2 border-2 border-neon-pink bg-neon-pink text-gray-900 font-pixel"
+						hx-get="/leaderboard?sort=votes"
+						hx-target="#ideas-list"
+						hx-swap="innerHTML"
+					>
+						TOP VOTED
+					</button>
+					<button
+						class="px-4 py-2 border-2 border-neon-cyan text-neon-cyan font-pixel hover:bg-neon-cyan hover:text-gray-900"
+						hx-get="/leaderboard?sort=recent"
+						hx-target="#ideas-list"
+						hx-swap="innerHTML"
+					>
+						RECENT
+					</button>
+					<button
+						class="px-4 py-2 border-2 border-neon-purple text-neon-purple font-pixel hover:bg-neon-purple hover:text-gray-900"
+						hx-get="/leaderboard?sort=eligible"
+						hx-target="#ideas-list"
+						hx-swap="innerHTML"
+					>
+						ELIGIBLE (50+)
+					</button>
+				</div>
+			</header>
+
+			<!-- Ideas List -->
+			<div id="ideas-list" class="max-w-4xl mx-auto">
+				if len(ideas) == 0 {
+					<div class="text-center py-16">
+						<p class="text-2xl font-pixel text-gray-500 mb-4">
+							NO IDEAS YET!
+						</p>
+						<p class="text-gray-400 mb-8">
+							Be the first to submit an idea!
+						</p>
+						@SubmitIdeaButton()
+					</div>
+				} else {
+					for _, idea := range ideas {
+						@IdeaCard(idea, false)
+					}
+				}
+			</div>
+
+			<!-- Stats Footer -->
+			<div class="mt-16 max-w-4xl mx-auto grid grid-cols-3 gap-4 text-center">
+				<div class="retro-card">
+					<div class="text-3xl font-pixel neon-glow-cyan mb-2">
+						{ fmt.Sprintf("%d", len(ideas)) }
+					</div>
+					<div class="text-sm text-gray-400">Total Ideas</div>
+				</div>
+				<div class="retro-card">
+					<div class="text-3xl font-pixel neon-glow-pink mb-2">
+						{ fmt.Sprintf("%d", countEligible(ideas)) }
+					</div>
+					<div class="text-sm text-gray-400">Eligible to Build</div>
+				</div>
+				<div class="retro-card">
+					<div class="text-3xl font-pixel neon-glow-purple mb-2">
+						{ fmt.Sprintf("%d", totalVotes(ideas)) }
+					</div>
+					<div class="text-sm text-gray-400">Total Votes</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modals -->
+		@EmailVerificationModal()
+
+		<!-- Submit Idea Modal (placeholder) -->
+		<div
+			id="submit-modal"
+			class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+			style="display: none;"
+		>
+			<!-- Form will be loaded via HTMX -->
+		</div>
+	}
+}
+
+// Helper functions for stats
+func countEligible(ideas []models.Idea) int {
+	count := 0
+	for _, idea := range ideas {
+		if idea.VoteCount >= 50 {
+			count++
+		}
+	}
+	return count
+}
+
+func totalVotes(ideas []models.Idea) int {
+	total := 0
+	for _, idea := range ideas {
+		total += idea.VoteCount
+	}
+	return total
+}

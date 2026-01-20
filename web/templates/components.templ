@@ -1,0 +1,175 @@
+package templates
+
+import "github.com/abhi10/idea-hamster/internal/models"
+import "fmt"
+
+// IdeaCard displays a single idea with voting
+templ IdeaCard(idea models.Idea, expanded bool) {
+	<div
+		class="retro-card mb-6 cursor-pointer hover:scale-[1.02] transition-transform"
+		id={ fmt.Sprintf("idea-%s", idea.ID) }
+	>
+		<!-- Header with Title and Vote Count -->
+		<div class="flex justify-between items-start mb-4">
+			<div class="flex-1">
+				<h2
+					class="text-xl font-pixel mb-2 neon-glow-pink"
+					hx-get={ fmt.Sprintf("/idea/%s/expand", idea.ID) }
+					hx-target={ fmt.Sprintf("#idea-%s", idea.ID) }
+					hx-swap="outerHTML"
+				>
+					{ idea.Title }
+				</h2>
+				<div class="flex gap-2 text-xs mb-2">
+					<span class="px-2 py-1 border border-neon-cyan text-neon-cyan">
+						{ idea.Category }
+					</span>
+					for _, tag := range idea.Tags {
+						<span class="px-2 py-1 bg-gray-800 text-neon-purple">
+							#{ tag }
+						</span>
+					}
+				</div>
+			</div>
+
+			<!-- Vote Count Badge -->
+			<div class="flex flex-col items-center ml-4">
+				<div class="text-3xl font-pixel neon-glow-cyan">
+					{ fmt.Sprintf("%d", idea.VoteCount) }
+				</div>
+				<div class="text-xs text-gray-400">votes</div>
+				if idea.Status == models.StatusEligible {
+					<div class="mt-2 px-2 py-1 border-2 border-neon-green text-neon-green text-xs animate-pulse">
+						ELIGIBLE!
+					</div>
+				}
+			</div>
+		</div>
+
+		<!-- Description -->
+		<p class="text-gray-300 mb-4 font-retro">
+			if expanded {
+				{ idea.Description }
+			} else {
+				if len(idea.Description) > 120 {
+					{ idea.Description[:120] }...
+					<span class="text-neon-cyan ml-2">Click to expand</span>
+				} else {
+					{ idea.Description }
+				}
+			}
+		</p>
+
+		if expanded {
+			<!-- Full Details (when expanded) -->
+			<div class="border-t border-gray-700 pt-4 mt-4">
+				<div class="text-sm text-gray-400 mb-4">
+					<span>Submitted by: </span>
+					<span class="text-neon-purple">
+						if idea.Submitter != "" {
+							{ idea.Submitter }
+						} else {
+							Anonymous
+						}
+					</span>
+					<span class="ml-4">
+						{ idea.CreatedAt.Format("Jan 2, 2006") }
+					</span>
+				</div>
+			</div>
+		}
+
+		<!-- Vote Button -->
+		<div class="flex gap-4 items-center mt-4">
+			@VoteButton(idea.ID, false)
+
+			if idea.VoteCount >= 50 {
+				<div class="flex-1 text-center py-2 border-2 border-neon-green text-neon-green font-pixel text-sm">
+					🎉 BUILD QUEUE!
+				</div>
+			}
+		</div>
+	</div>
+}
+
+// VoteButton renders a vote button with HTMX
+templ VoteButton(ideaID string, voted bool) {
+	if voted {
+		<button
+			class="px-6 py-3 border-2 border-neon-green bg-gray-800 text-neon-green font-pixel text-sm cursor-not-allowed"
+			disabled
+		>
+			✓ VOTED
+		</button>
+	} else {
+		<button
+			class="retro-button"
+			hx-post={ fmt.Sprintf("/api/vote/%s", ideaID) }
+			hx-target="closest div"
+			hx-swap="outerHTML"
+		>
+			⬆️ VOTE
+		</button>
+	}
+}
+
+// EmailVerificationModal for first-time voters
+templ EmailVerificationModal() {
+	<div
+		id="email-modal"
+		class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+		style="display: none;"
+	>
+		<div class="retro-card max-w-md w-full mx-4">
+			<h2 class="text-2xl font-pixel neon-glow-pink mb-4">
+				VERIFY EMAIL
+			</h2>
+			<p class="mb-4 text-gray-300">
+				To prevent spam, we need your email. You only need to do this once!
+			</p>
+
+			<form
+				hx-post="/api/verify-email"
+				hx-target="#email-modal"
+				hx-swap="outerHTML"
+			>
+				<input
+					type="email"
+					name="email"
+					placeholder="your@email.com"
+					required
+					class="retro-input w-full mb-4"
+				/>
+
+				<div class="flex gap-4">
+					<button
+						type="submit"
+						class="retro-button flex-1"
+					>
+						VERIFY
+					</button>
+					<button
+						type="button"
+						class="px-6 py-3 border-2 border-gray-600 text-gray-400 hover:border-gray-400"
+						onclick="document.getElementById('email-modal').style.display='none'"
+					>
+						CANCEL
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+}
+
+// SubmitIdeaButton opens submission form
+templ SubmitIdeaButton() {
+	<button
+		class="retro-button text-lg"
+		hx-get="/submit-form"
+		hx-target="#submit-modal"
+		hx-swap="innerHTML"
+		onclick="document.getElementById('submit-modal').style.display='flex'"
+	>
+		+ SUBMIT IDEA
+	</button>
+}

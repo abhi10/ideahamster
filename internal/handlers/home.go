@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/abhishekrajuchamarthi/idea-hamster/web/templates"
+	"github.com/abhi10/idea-hamster/web/templates"
 )
 
 func HandleHome(w http.ResponseWriter, r *http.Request) {
