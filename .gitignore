@@ -43,8 +43,8 @@ Thumbs.db
 # Node modules (for Tailwind)
 node_modules/
 
-# Compiled CSS
-web/static/css/output.css
+# Compiled CSS (keep output.css for Docker builds without Node)
+# web/static/css/output.css
 
 # Logs
 *.log
