@@ -1,10 +1,12 @@
-# 🐹 Idea Hamster
+<p align="center">
 
 ```
  ╦╔╦╗╔═╗╔═╗  ╦ ╦╔═╗╔╦╗╔═╗╔╦╗╔═╗╦═╗
  ║ ║║║╣ ╠═╣  ╠═╣╠═╣║║║╚═╗ ║ ║╣ ╠╦╝
  ╩═╩╝╚═╝╩ ╩  ╩ ╩╩ ╩╩ ╩╚═╝ ╩ ╚═╝╩╚═
 ```
+
+</p>
 
 <p align="center">
   <img src="assets/screenshot.png" alt="Idea Hamster - Retro Leaderboard" width="700">
