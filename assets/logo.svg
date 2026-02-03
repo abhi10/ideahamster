@@ -29,11 +29,8 @@
   <!-- Top decorative line -->
   <line x1="20" y1="15" x2="480" y2="15" stroke="url(#neonCyan)" stroke-width="1" opacity="0.5"/>
 
-  <!-- Hamster emoji -->
-  <text x="70" y="62" font-size="36" text-anchor="middle">🐹</text>
-
   <!-- IDEA text -->
-  <text x="165" y="60"
+  <text x="115" y="60"
         font-family="'Courier New', Consolas, monospace"
         font-size="36"
         font-weight="bold"
@@ -41,7 +38,7 @@
         filter="url(#glow)">IDEA</text>
 
   <!-- HAMSTER text -->
-  <text x="295" y="60"
+  <text x="245" y="60"
         font-family="'Courier New', Consolas, monospace"
         font-size="36"
         font-weight="bold"
