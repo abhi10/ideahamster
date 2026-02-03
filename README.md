@@ -1,11 +1,5 @@
 <p align="center">
-
-```
- ╦╔╦╗╔═╗╔═╗  ╦ ╦╔═╗╔╦╗╔═╗╔╦╗╔═╗╦═╗
- ║ ║║║╣ ╠═╣  ╠═╣╠═╣║║║╚═╗ ║ ║╣ ╠╦╝
- ╩═╩╝╚═╝╩ ╩  ╩ ╩╩ ╩╩ ╩╚═╝ ╩ ╚═╝╩╚═
-```
-
+  <img src="assets/logo.svg" alt="Idea Hamster" width="600">
 </p>
 
 <p align="center">
