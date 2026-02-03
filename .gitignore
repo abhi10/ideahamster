@@ -52,5 +52,5 @@ node_modules/
 # Playwright MCP screenshots
 .playwright-mcp/
 
-# Internal documentation
-docs/
+# Internal documentation (keep docs/ for deployment guides)
+# docs/
