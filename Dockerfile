@@ -42,15 +42,8 @@ COPY --from=builder /app/web/static ./web/static
 # Use non-root user
 USER appuser
 
-# Railway sets PORT automatically, default to 3001 for local testing
-ENV PORT=3001
-
-# Expose port
-EXPOSE 3001
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT}/health || exit 1
+# Railway injects PORT at runtime - no need to set defaults
+# Local testing: docker run -e PORT=3001 -p 3001:3001 ideahamster
 
 # Run the server
 CMD ["./server"]
