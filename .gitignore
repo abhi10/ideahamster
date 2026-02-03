@@ -48,3 +48,9 @@ web/static/css/output.css
 
 # Logs
 *.log
+
+# Playwright MCP screenshots
+.playwright-mcp/
+
+# Internal documentation
+docs/

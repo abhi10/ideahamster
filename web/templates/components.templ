@@ -1,6 +1,6 @@
 package templates
 
-import "github.com/abhi10/idea-hamster/internal/models"
+import "github.com/abhi10/ideahamster/internal/models"
 import "fmt"
 
 // IdeaCard displays a single idea with voting
@@ -151,7 +151,7 @@ templ EmailVerificationModal() {
 					<button
 						type="button"
 						class="px-6 py-3 border-2 border-gray-600 text-gray-400 hover:border-gray-400"
-						onclick="document.getElementById('email-modal').style.display='none'"
+						data-close-modal="email-modal"
 					>
 						CANCEL
 					</button>
@@ -168,7 +168,7 @@ templ SubmitIdeaButton() {
 		hx-get="/submit-form"
 		hx-target="#submit-modal"
 		hx-swap="innerHTML"
-		onclick="document.getElementById('submit-modal').style.display='flex'"
+		data-open-modal="submit-modal"
 	>
 		+ SUBMIT IDEA
 	</button>

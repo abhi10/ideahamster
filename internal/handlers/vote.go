@@ -3,35 +3,47 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
-	"github.com/abhi10/idea-hamster/internal/models"
-	"github.com/abhi10/idea-hamster/web/templates"
+	"github.com/abhi10/ideahamster/internal/config"
+	"github.com/abhi10/ideahamster/internal/models"
+	"github.com/abhi10/ideahamster/internal/sanitizer"
+	"github.com/abhi10/ideahamster/web/templates"
 	"github.com/go-chi/chi/v5"
 )
 
-// Session cookie name for storing verified email
-const emailCookieName = "voter_email"
+// getVerifiedEmail extracts and validates the voter email from cookie.
+// Returns empty string if not verified.
+func getVerifiedEmail(r *http.Request) string {
+	cookie, err := r.Cookie(config.EmailCookieName)
+	if err != nil || cookie.Value == "" {
+		return ""
+	}
+	return cookie.Value
+}
 
 // HandleVote processes a vote on an idea
 func HandleVote(w http.ResponseWriter, r *http.Request) {
 	ideaID := chi.URLParam(r, "ideaID")
-
-	// Check if user has verified email in session
-	cookie, err := r.Cookie(emailCookieName)
-	if err != nil || cookie.Value == "" {
-		// No email verified - show verification modal
-		w.Header().Set("HX-Trigger", "showEmailModal")
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`<script>document.getElementById('email-modal').style.display='flex'</script>`))
+	if ideaID == "" {
+		http.Error(w, "Invalid idea ID", http.StatusBadRequest)
 		return
 	}
 
-	email := cookie.Value
+	// Check if user has verified email in session
+	email := getVerifiedEmail(r)
+	if email == "" {
+		// No email verified - trigger modal via HTMX event
+		w.Header().Set("HX-Trigger", `{"showModal": "email-modal"}`)
+		w.Header().Set("Content-Type", "text/html")
+		component := templates.VoteButton(ideaID, false)
+		component.Render(r.Context(), w)
+		return
+	}
 
 	// TODO: Save vote to database
-	// For now, simulate voting
-	fmt.Printf("Vote registered: idea=%s, email=%s\n", ideaID, email)
+	log.Printf("Vote registered: idea=%s, email=%s", ideaID, email)
 
 	// Return updated vote button (showing voted state)
 	component := templates.VoteButton(ideaID, true)
@@ -40,48 +52,58 @@ func HandleVote(w http.ResponseWriter, r *http.Request) {
 
 // HandleVerifyEmail verifies an email and stores it in session
 func HandleVerifyEmail(w http.ResponseWriter, r *http.Request) {
-	email := r.FormValue("email")
+	rawEmail := r.FormValue("email")
 
-	if email == "" {
-		http.Error(w, "Email required", http.StatusBadRequest)
+	// Sanitize and validate email
+	email, err := sanitizer.SanitizeEmail(rawEmail)
+	if err != nil {
+		log.Printf("Email validation failed: %v", err)
+		w.Header().Set("Content-Type", "text/html")
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(fmt.Sprintf(`
+			<div class="retro-card max-w-md w-full mx-4">
+				<h2 class="text-xl font-pixel theme-primary mb-4">ERROR</h2>
+				<p class="text-red-400 mb-4">%s</p>
+				<a href="/" class="retro-button inline-block text-center">
+					TRY AGAIN
+				</a>
+			</div>
+		`, err.Error())))
 		return
 	}
 
-	// TODO: Send verification code via email
-	// For Phase 1, we'll just accept the email and set cookie
-
-	// Set cookie with email (expires in 1 year)
+	// Set cookie with email
 	http.SetCookie(w, &http.Cookie{
-		Name:     emailCookieName,
+		Name:     config.EmailCookieName,
 		Value:    email,
 		Path:     "/",
-		MaxAge:   365 * 24 * 60 * 60, // 1 year
+		MaxAge:   config.CookieMaxAge,
 		HttpOnly: true,
+		Secure:   config.IsProduction(),
 		SameSite: http.SameSiteStrictMode,
 	})
 
-	// Close modal and show success
+	// Close modal and trigger page refresh via HTMX
+	w.Header().Set("HX-Trigger", `{"closeModal": "email-modal", "showNotification": "Email verified! You can now vote."}`)
+	w.Header().Set("HX-Refresh", "true")
 	w.Header().Set("Content-Type", "text/html")
-	w.Write([]byte(`
-		<script>
-			document.getElementById('email-modal').style.display='none';
-			alert('✅ Email verified! You can now vote.');
-			window.location.reload();
-		</script>
-	`))
+	w.Write([]byte(`<div class="text-center p-4 theme-success">Email verified!</div>`))
 }
 
 // HandleExpandIdea returns expanded view of an idea
 func HandleExpandIdea(w http.ResponseWriter, r *http.Request) {
 	ideaID := chi.URLParam(r, "ideaID")
+	if ideaID == "" {
+		http.Error(w, "Invalid idea ID", http.StatusBadRequest)
+		return
+	}
 
 	// TODO: Fetch from database
-	// For now, find in mock data
 	ideas := getMockIdeas()
 	var idea *models.Idea
-	for _, i := range ideas {
-		if i.ID == ideaID {
-			idea = &i
+	for i := range ideas {
+		if ideas[i].ID == ideaID {
+			idea = &ideas[i]
 			break
 		}
 	}
@@ -91,12 +113,11 @@ func HandleExpandIdea(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Return expanded card
 	component := templates.IdeaCard(*idea, true)
 	component.Render(r.Context(), w)
 }
 
-// API response structure
+// VoteResponse is the API response structure for voting
 type VoteResponse struct {
 	Success   bool   `json:"success"`
 	NewCount  int    `json:"new_count"`
@@ -106,11 +127,22 @@ type VoteResponse struct {
 
 // HandleVoteAPI is a JSON API endpoint for voting (alternative to HTMX)
 func HandleVoteAPI(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
 	ideaID := chi.URLParam(r, "ideaID")
+	if ideaID == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(VoteResponse{
+			Success: false,
+			Message: "Invalid idea ID",
+		})
+		return
+	}
 
 	// Check if user has verified email
-	cookie, err := r.Cookie(emailCookieName)
-	if err != nil || cookie.Value == "" {
+	email := getVerifiedEmail(r)
+	if email == "" {
+		w.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(w).Encode(VoteResponse{
 			Success:   false,
 			NeedsAuth: true,
@@ -119,12 +151,9 @@ func HandleVoteAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	email := cookie.Value
-
 	// TODO: Save vote to database and get new count
-	// For now, simulate
-	fmt.Printf("API Vote: idea=%s, email=%s\n", ideaID, email)
-	newCount := 42
+	log.Printf("API Vote: idea=%s, email=%s", ideaID, email)
+	newCount := 42 // Mock count
 
 	json.NewEncoder(w).Encode(VoteResponse{
 		Success:  true,

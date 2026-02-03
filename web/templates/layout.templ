@@ -1,6 +1,6 @@
 package templates
 
-templ Layout(title string) {
+templ Layout(title string, csrfToken string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -22,8 +22,14 @@ templ Layout(title string) {
 			<!-- HTMX -->
 			<script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
+			<!-- CSRF Token for HTMX (read by app.js) -->
+			<meta name="csrf-token" content={ csrfToken }/>
+
 			<!-- Theme Switcher JS -->
 			<script src="/static/js/theme-switcher.js"></script>
+
+			<!-- App JS (CSRF config, modal handlers, etc.) -->
+			<script src="/static/js/app.js"></script>
 
 			<!-- Custom CSS for CRT effects -->
 			<style>

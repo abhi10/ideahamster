@@ -3,25 +3,42 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/abhi10/idea-hamster/internal/models"
-	"github.com/abhi10/idea-hamster/web/templates"
+	"github.com/abhi10/ideahamster/internal/config"
+	"github.com/abhi10/ideahamster/internal/middleware"
+	"github.com/abhi10/ideahamster/internal/models"
+	"github.com/abhi10/ideahamster/web/templates"
 )
 
+// validSortParams is a whitelist of allowed sort parameters
+var validSortParams = map[string]bool{
+	"":         true, // default (votes)
+	"votes":    true,
+	"recent":   true,
+	"eligible": true,
+}
+
+// HandleLeaderboard renders the leaderboard page with ideas
 func HandleLeaderboard(w http.ResponseWriter, r *http.Request) {
+	csrfToken := middleware.GetCSRFToken(r)
+
 	// TODO: Fetch from database when connected
-	// For now, use mock data
 	ideas := getMockIdeas()
 
-	// Sort based on query parameter
+	// Validate and sanitize sort parameter
 	sortBy := r.URL.Query().Get("sort")
+	if !validSortParams[sortBy] {
+		sortBy = "votes"
+	}
+
+	// Apply sorting/filtering
 	switch sortBy {
 	case "recent":
 		// Sort by created_at desc (already in order for mock)
 	case "eligible":
-		// Filter only ideas with 50+ votes
-		eligible := []models.Idea{}
+		// Filter only ideas meeting vote threshold
+		eligible := make([]models.Idea, 0)
 		for _, idea := range ideas {
-			if idea.VoteCount >= 50 {
+			if idea.VoteCount >= config.VoteThreshold {
 				eligible = append(eligible, idea)
 			}
 		}
@@ -30,7 +47,7 @@ func HandleLeaderboard(w http.ResponseWriter, r *http.Request) {
 		// Default: sort by votes desc (already in order for mock)
 	}
 
-	component := templates.Leaderboard(ideas)
+	component := templates.Leaderboard(ideas, csrfToken)
 	component.Render(r.Context(), w)
 }
 

@@ -1,10 +1,10 @@
 package templates
 
-import "github.com/abhi10/idea-hamster/internal/models"
+import "github.com/abhi10/ideahamster/internal/models"
 import "fmt"
 
-templ Leaderboard(ideas []models.Idea) {
-	@Layout("Leaderboard") {
+templ Leaderboard(ideas []models.Idea, csrfToken string) {
+	@Layout("Leaderboard", csrfToken) {
 		<div class="container mx-auto px-4 py-8 tron-grid arctic-shimmer">
 			<!-- Header -->
 			<header class="text-center mb-12">
@@ -36,10 +36,9 @@ templ Leaderboard(ideas []models.Idea) {
 						TOP VOTED
 					</button>
 					<button
-						class="px-4 py-2 border-2 border-neon-purple text-neon-purple font-pixel hover:bg-neon-purple hover:text-white transition-all"
-						hx-get="/leaderboard?sort=recent"
-						hx-target="#ideas-list"
-						hx-swap="innerHTML"
+						class="px-4 py-2 border-2 border-gray-600 text-gray-500 font-pixel cursor-not-allowed opacity-50"
+						disabled
+						title="Coming soon!"
 					>
 						RECENT
 					</button>
