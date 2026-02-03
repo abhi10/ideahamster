@@ -2,7 +2,8 @@ package templates
 
 templ Home(csrfToken string) {
 	@Layout("Home", csrfToken) {
-		<div class="container mx-auto px-4 py-8 tron-grid arctic-shimmer">
+		<div class="min-h-screen tron-grid arctic-shimmer">
+			<div class="container mx-auto px-4 py-8">
 			<!-- Header -->
 			<header class="text-center mb-12">
 				<h1 class="text-5xl font-pixel mb-4 neon-glow-cyan text-neon-cyan">
@@ -63,6 +64,7 @@ templ Home(csrfToken string) {
 					</a>
 				</p>
 			</footer>
+			</div>
 		</div>
 	}
 }
