@@ -1,15 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 140">
   <defs>
     <linearGradient id="neonPink" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#FF10F0"/>
-      <stop offset="100%" style="stop-color:#FF6BF0"/>
-    </linearGradient>
-    <linearGradient id="neonCyan" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#00FFFF"/>
-      <stop offset="100%" style="stop-color:#00CED1"/>
+      <stop offset="100%" style="stop-color:#00FFFF"/>
     </linearGradient>
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -18,37 +14,21 @@
   </defs>
 
   <!-- Background -->
-  <rect width="500" height="100" fill="#0D0D1A" rx="8"/>
+  <rect width="700" height="140" fill="#0D0D1A" rx="8"/>
 
   <!-- Scanlines effect -->
   <pattern id="scanlines" patternUnits="userSpaceOnUse" width="4" height="4">
-    <rect width="4" height="2" fill="rgba(0,0,0,0.1)"/>
+    <rect width="4" height="2" fill="rgba(0,0,0,0.15)"/>
   </pattern>
-  <rect width="500" height="100" fill="url(#scanlines)" rx="8"/>
+  <rect width="700" height="140" fill="url(#scanlines)" rx="8"/>
 
-  <!-- Top decorative line -->
-  <line x1="20" y1="15" x2="480" y2="15" stroke="url(#neonCyan)" stroke-width="1" opacity="0.5"/>
-
-  <!-- IDEA text -->
-  <text x="115" y="60"
-        font-family="'Courier New', Consolas, monospace"
-        font-size="36"
-        font-weight="bold"
-        fill="url(#neonPink)"
-        filter="url(#glow)">IDEA</text>
-
-  <!-- HAMSTER text -->
-  <text x="245" y="60"
-        font-family="'Courier New', Consolas, monospace"
-        font-size="36"
-        font-weight="bold"
-        fill="url(#neonCyan)"
-        filter="url(#glow)">HAMSTER</text>
-
-  <!-- Bottom decorative line -->
-  <line x1="20" y1="85" x2="480" y2="85" stroke="url(#neonPink)" stroke-width="1" opacity="0.5"/>
-
-  <!-- Corner brackets -->
-  <text x="25" y="60" font-family="monospace" font-size="24" fill="#FF10F0" opacity="0.7">[</text>
-  <text x="475" y="60" font-family="monospace" font-size="24" fill="#00FFFF" opacity="0.7">]</text>
+  <!-- ASCII Art Text -->
+  <text font-family="'Courier New', Consolas, monospace" font-size="11" fill="url(#neonPink)" filter="url(#glow)">
+    <tspan x="35" y="35">██╗██████╗ ███████╗ █████╗     ██╗  ██╗ █████╗ ███╗   ███╗███████╗████████╗███████╗██████╗</tspan>
+    <tspan x="35" y="52">██║██╔══██╗██╔════╝██╔══██╗    ██║  ██║██╔══██╗████╗ ████║██╔════╝╚══██╔══╝██╔════╝██╔══██╗</tspan>
+    <tspan x="35" y="69">██║██║  ██║█████╗  ███████║    ███████║███████║██╔████╔██║███████╗   ██║   █████╗  ██████╔╝</tspan>
+    <tspan x="35" y="86">██║██║  ██║██╔══╝  ██╔══██║    ██╔══██║██╔══██║██║╚██╔╝██║╚════██║   ██║   ██╔══╝  ██╔══██╗</tspan>
+    <tspan x="35" y="103">██║██████╔╝███████╗██║  ██║    ██║  ██║██║  ██║██║ ╚═╝ ██║███████║   ██║   ███████╗██║  ██║</tspan>
+    <tspan x="35" y="120">╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝</tspan>
+  </text>
 </svg>
